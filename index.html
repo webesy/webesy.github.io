@@ -12,6 +12,8 @@
     crossorigin=""/>
     <!-- leaflet routing machine css -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
+    <!-- leaflet polyline measure css -->
+    <link rel="stylesheet" href="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css" />
 
 
     <style>
@@ -41,6 +43,8 @@
 
 <!--leaflet routing machine js -->
 <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+<!--leaflet polyline measure css-->
+<script src="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
 
 <script>
     //Map Initialization
@@ -135,14 +139,14 @@
     map.on('click', function(e){
     console.log(e)
     var mark = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
-
+    // function to add routing waypoints to the map
     L.Routing.control({
     waypoints: [
         L.latLng(-37.822, 140.782),
         L.latLng(e.latlng.lat, e.latlng.lng)
         ]
     }).addTo(map);
-    
+    // polyline measure functionality
     var measure = L.control.polylineMeasure({
     position: 'topleft',
     unit: 'kilometres',
