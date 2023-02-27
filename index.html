@@ -81,9 +81,7 @@
     L.control.layers(baseMaps).addTo(map);
 
     googleStreets.addTo(map);
-    //googleSat.addTo(map);
-    //osm.addTo(map);
-    //TopoMap.addTo(map);
+
 
     //Code to load custom GeoJSON file
     var request = new XMLHttpRequest();
@@ -149,5 +147,25 @@
         L.latLng(e.latlng.lat, e.latlng.lng)
         ]
     }).addTo(map);
+    
+    var measure = L.control.polylineMeasure({
+    position: 'topleft',
+    unit: 'kilometres',
+    useSubunits: true,
+    clearMeasurementsOnStop: true,
+    showBearings: true,
+    bearingTextIn: 'In',
+    bearingTextOut: 'Out',
+    tooltipTextFinish: 'Click to <b>Finish Line</b><br>',
+    tooltipTextDelete: 'Press SHIFT-key and click to <b>Delete Point</b>',
+    tooltipTextMove: 'Click and drag to <b>Move Point</b><br>',
+    tooltipTextResume: '<br>Press CTRL-key and click to <b>Resume Line</b>',
+    tooltipTextAdd: 'Press CTRL-key and click to <b>add point</b>',
+    showClearControl: true,
+    showUnitControl: true,
+    unitControlUnits: ["kilometres", "landmiles"],
+    }).addTo(map);
 })
+
+
 </script>
