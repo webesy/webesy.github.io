@@ -99,8 +99,10 @@
 
     //Facilities Markers
     var myIcon = L.icon({
-        iconUrl: './Symbols/Facilities.png',
-        iconSize: [40,40]
+        iconUrl: 'Symbols/Facilities.png',
+        iconSize: [40,40],
+        iconAnchor: [19,19],
+        popupAnchor: [0,-15]
     })
     
     var markers = [
@@ -137,7 +139,7 @@
 
     //Loop to interate through array and add markers to map
     for (var i =0; i < markers.length; i++){
-        var marker = L.marker(markers[i].coords).addTo(map).bindPopup(markers[i].content);
+        var marker = L.marker(markers[i].coords, {icon: myIcon}).addTo(map).bindPopup(markers[i].content);
     }
     // polyline measure functionality
     var measure = L.control.polylineMeasure({
