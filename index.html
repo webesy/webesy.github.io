@@ -146,25 +146,26 @@
         L.latLng(e.latlng.lat, e.latlng.lng)
         ]
     }).addTo(map);
+})  
     // polyline measure functionality
     var measure = L.control.polylineMeasure({
-    position: 'topleft',
-    unit: 'kilometres',
-    useSubunits: true,
-    clearMeasurementsOnStop: true,
-    showBearings: true,
-    bearingTextIn: 'In',
-    bearingTextOut: 'Out',
-    tooltipTextFinish: 'Click to <b>Finish Line</b><br>',
-    tooltipTextDelete: 'Press SHIFT-key and click to <b>Delete Point</b>',
-    tooltipTextMove: 'Click and drag to <b>Move Point</b><br>',
-    tooltipTextResume: '<br>Press CTRL-key and click to <b>Resume Line</b>',
-    tooltipTextAdd: 'Press CTRL-key and click to <b>add point</b>',
-    showClearControl: true,
-    showUnitControl: true,
-    unitControlUnits: ["kilometres", "landmiles"],
+        position: 'topleft',
+        unit: 'kilometres',
+        useSubunits: true,
+        clearMeasurementsOnStop: true,
+        showBearings: true,
+        bearingTextIn: 'In',
+        bearingTextOut: 'Out',
+        tooltipTextFinish: 'Click to <b>Finish Line</b><br>',
+        tooltipTextDelete: 'Press SHIFT-key and click to <b>Delete Point</b>',
+        tooltipTextMove: 'Click and drag to <b>Move Point</b><br>',
+        tooltipTextResume: '<br>Press CTRL-key and click to <b>Resume Line</b>',
+        tooltipTextAdd: 'Press CTRL-key and click to <b>add point</b>',
+        showClearControl: true,
+        showUnitControl: true,
+        unitControlUnits: ["kilometres", "landmiles"],
     }).addTo(map);
-})
+
 
 
 </script>
