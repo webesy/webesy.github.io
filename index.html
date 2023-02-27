@@ -139,7 +139,6 @@
     map.on('click', function(e){
     console.log(e)
     var mark = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
-}) 
     // function to add routing waypoints to the map
     L.Routing.control({
     waypoints: [
@@ -147,7 +146,7 @@
         L.latLng(e.latlng.lat, e.latlng.lng)
         ]
     }).addTo(map);
-     
+    
     // polyline measure functionality
     var measure = L.control.polylineMeasure({
         position: 'topleft',
@@ -166,7 +165,7 @@
         showUnitControl: true,
         unitControlUnits: ["kilometres", "landmiles"],
     }).addTo(map);
-
+})
 
 
 </script>
