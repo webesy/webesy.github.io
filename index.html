@@ -134,19 +134,6 @@
     for (var i =0; i < markers.length; i++){
         var marker = L.marker(markers[i].coords).addTo(map).bindPopup(markers[i].content);
     }
-
-    // map click event
-    map.on('click', function(e){
-    console.log(e)
-    var mark = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
-    // function to add routing waypoints to the map
-    L.Routing.control({
-    waypoints: [
-        L.latLng(-37.822, 140.782),
-        L.latLng(e.latlng.lat, e.latlng.lng)
-        ]
-    }).addTo(map);
-})
     // polyline measure functionality
     var measure = L.control.polylineMeasure({
         position: 'topleft',
@@ -165,7 +152,19 @@
         showUnitControl: true,
         unitControlUnits: ["kilometres", "landmiles"],
     }).addTo(map);
-
+    
+    // map click event
+    map.on('click', function(e){
+    console.log(e)
+    var mark = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+    // function to add routing waypoints to the map
+    L.Routing.control({
+    waypoints: [
+        L.latLng(-37.822, 140.782),
+        L.latLng(e.latlng.lat, e.latlng.lng)
+        ]
+    }).addTo(map);
+})
 
 
 </script>
