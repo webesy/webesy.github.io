@@ -155,16 +155,19 @@
 
     // map click event
     map.on('dblclick', function(e){
-    console.log(e)
-    var mark = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
-    // function to add routing waypoints to the map
-    L.Routing.control({
-    waypoints: [
-        L.latLng(-37.822, 140.782),
-        L.latLng(e.latlng.lat, e.latlng.lng)
-        ]
-    }).addTo(map);
-})
+        console.log(e)
+        var mark = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+        // check for double click
+        if (e.originalEvent.detail == 2) {
+        // function to add routing waypoints to the map
+            L.Routing.control({
+                waypoints: [
+                    L.latLng(-37.822, 140.782),
+                    L.latLng(e.latlng.lat, e.latlng.lng)
+                ]
+            }).addTo(map);
+        }
+});
 
 
 </script>
