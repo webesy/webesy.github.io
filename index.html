@@ -131,11 +131,12 @@
         var marker = L.marker(markers[i].coords).addTo(map).bindPopup(markers[i].content);
     }
 
-    // map click event
+    // map click event for adding routing waypoints to map 
     map.on('click', function(e){
     console.log(e)
     var mark = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
-
+})
+    //Routing default start point
     L.Routing.control({
     waypoints: [
         L.latLng(-37.822, 140.782),
@@ -143,6 +144,7 @@
         ]
     }).addTo(map);
     
+    //Measure functionality
     var measure = L.control.polylineMeasure({
     position: 'topleft',
     unit: 'kilometres',
@@ -160,7 +162,7 @@
     showUnitControl: true,
     unitControlUnits: ["kilometres", "landmiles"],
     }).addTo(map);
-})
+
 
 
 </script>
