@@ -93,6 +93,16 @@
         geojson = JSON.parse(request.responseText);
     }
 
+    // create an empty GeoJSON layer
+    var geojsonLayer = L.geoJSON().addTo(map);
+    // load Haulage Routes GeoJSON data w/ AJAX
+    $.ajax({
+       url: "TotalHaulageRoutes2021.geojson",
+       dataType: "json",
+       success: function(data) {
+        geojsonLayer.addData(data);
+       } 
+    });
     // Marker and Routing Functionality //
     // Markers
     var mark = L.marker([-37.822, 140.782]).addTo(map)
