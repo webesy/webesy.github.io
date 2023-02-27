@@ -54,16 +54,12 @@
     continuousWorld: true,
     tileSize: 256,
     });
-    //OPEN STREET MAP TOPO Layer
-    var TopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-	maxZoom: 17,
-	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-});
+
     //Google Streets Layer
     var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
     maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3']
-})
+});
     //Google Satellite Layer
     var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
     maxZoom: 20,
@@ -73,7 +69,6 @@
     //Layer Controller
     var baseMaps = {
         "Open Street Map": osm,
-        "Open Street Map Topo": TopoMap,
         "Google Streets": googleStreets,
         "Google Satellite": googleSat
     };
@@ -81,18 +76,65 @@
     L.control.layers(baseMaps).addTo(map);
 
     googleStreets.addTo(map);
-    //googleSat.addTo(map);
-    //osm.addTo(map);
-    //TopoMap.addTo(map);
 
-// MARKER and Routing Functionality //
-// marker
-    var marker = L.marker([-37.822, 140.782]).addTo(map)
 
-// map click event
+    //Code to load custom GeoJSON file
+    var request = new XMLHttpRequest();
+    request.open("GET", "GeoJSON/Total_Haulage_Routes_2021_mif.geojson", true);
+    request.send(null);
+
+    var geojson;
+
+    if (request.status == 200) {
+        geojson = JSON.parse(request.responseText);
+    }
+
+    // MARKER and Routing Functionality //
+    // markers
+    var mark = L.marker([-37.822, 140.782]).addTo(map)
+
+    //Facilities Markers
+    var markers = [
+        {coords: [-37.8166, 140.7469], content: "Borgs Lakeside"},
+        {coords: [-37.8249, 140.7610], content: "Borgs White Ave"},
+        {coords: [-37.8441, 140.8058], content: "WTS"},
+        {coords: [-37.7533, 140.6608], content: "SE Pine Sales"},
+        {coords: [-38.32203, 141.58102], content: "PFP PNR Log Dump"},
+        {coords: [-38.35257, 141.61324], content: "ABP"},
+        {coords: [-37.8134, 140.6451], content: "New Gen"},
+        {coords: [-37.909525, 141.273250], content: "Alliance Timber"},
+        {coords: [-37.8166, 140.7469], content: "PFP PNR Weighbridge"},
+        {coords: [-38.31646, 141.57864], content: "PFP Darts Rd Weighbridge"},
+        {coords: [-38.31558, 141.57942], content: "Darts Rd Gate"},
+        {coords: [-38.35181, 141.61682], content: "Wharf Weighbridge"},
+        {coords: [-38.31621, 141.57904], content: "PFP Darts Rd Log Dump"},
+        {coords: [-38.323993, 141.581702], content: "PFP PNR Scaling"},
+        {coords: [-38.35554, 141.61149], content: "Canal Court"},
+        {coords: [-38.31796, 141.57913], content: "PFP Darts Rd Scaling"},
+        {coords: [-38.40465, 141.62573], content: "PoPL Quarry"},
+        {coords: [-37.53948, 140.70442], content: "PTT"},
+        {coords: [-37.61121, 140.79756], content: "Timberlink"},
+        {coords: [-38.33868, 143.61050], content: "AKD Colac"},
+        {coords: [-38.32313, 141.58229], content: "PFP Gate"},
+        {coords: [-37.8166, 140.7469], content: "A2C"},
+        {coords: [-38.34998, 141.61492], content: "Portland Wharf"},
+        {coords: [-38.110586, 141.620118], content: "Portland Pine Products"},
+        {coords: [-37.8414, 140.8048], content: "OFO Jubilee"},
+        {coords: [-37.8052, 140.7738], content: "NF McDonnell"},
+        {coords: [-38.31200, 143.65005], content: "AKD Irrawarra"},
+        {coords: [-38.35653, 141.60905], content: "C3"},
+        {coords: [-37.88693, 140.83735], content: "Roundwood Solutions"},
+    ];
+
+    //Loop to interate through array and add markers to map
+    for (var i =0; i < markers.length; i++){
+        var marker = L.marker(markers[i].coords).addTo(map).bindPopup(markers[i].content);
+    }
+
+    // map click event
     map.on('click', function(e){
     console.log(e)
-    var marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+    var mark = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
 
     L.Routing.control({
     waypoints: [
@@ -100,5 +142,25 @@
         L.latLng(e.latlng.lat, e.latlng.lng)
         ]
     }).addTo(map);
+    
+    var measure = L.control.polylineMeasure({
+    position: 'topleft',
+    unit: 'kilometres',
+    useSubunits: true,
+    clearMeasurementsOnStop: true,
+    showBearings: true,
+    bearingTextIn: 'In',
+    bearingTextOut: 'Out',
+    tooltipTextFinish: 'Click to <b>Finish Line</b><br>',
+    tooltipTextDelete: 'Press SHIFT-key and click to <b>Delete Point</b>',
+    tooltipTextMove: 'Click and drag to <b>Move Point</b><br>',
+    tooltipTextResume: '<br>Press CTRL-key and click to <b>Resume Line</b>',
+    tooltipTextAdd: 'Press CTRL-key and click to <b>add point</b>',
+    showClearControl: true,
+    showUnitControl: true,
+    unitControlUnits: ["kilometres", "landmiles"],
+    }).addTo(map);
 })
+
+
 </script>
