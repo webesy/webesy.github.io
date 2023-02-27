@@ -93,8 +93,8 @@
         geojson = JSON.parse(request.responseText);
     }
 
-    // MARKER and Routing Functionality //
-    // markers
+    // Marker and Routing Functionality //
+    // Markers
     var mark = L.marker([-37.822, 140.782]).addTo(map)
 
     //Facilities Markers
@@ -139,7 +139,7 @@
 
     //Loop to interate through array and add markers to map
     for (var i =0; i < markers.length; i++){
-        var marker = L.marker(markers[i].coords).addTo(map).bindPopup(markers[i].content);
+        var marker = L.marker([markers[i].coords], {icon: myIcon}).addTo(map).bindPopup(markers[i].content);
     }
     // polyline measure functionality
     var measure = L.control.polylineMeasure({
