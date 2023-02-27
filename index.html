@@ -137,8 +137,8 @@
     // map click event for adding routing waypoints to map 
     map.on('click', function(e){
     console.log(e)
-    var mark = L.marker([e.latlng.lat, e.latlng.lng])
-    }).addTo(map);
+    var mark = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+    })
     //Routing default start point
     L.Routing.control({
     waypoints: [
