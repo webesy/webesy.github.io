@@ -152,9 +152,9 @@
         showUnitControl: true,
         unitControlUnits: ["kilometres", "landmiles"],
     }).addTo(map);
-    
-    // map click event
-    map.on('click', function(e){
+
+    // map double click event
+    map.on('dblclick', function(e){
     console.log(e)
     var mark = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
     // function to add routing waypoints to the map
