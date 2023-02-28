@@ -87,6 +87,14 @@
 
     googleStreets.addTo(map);
 
+    //ESRI geocoding control
+    var searchControl = L.esri.Geocoding.geosearch({
+        providers: [
+            L.esri.Geocoding.arcgisOnlineProvider({
+                apikey: 'AAPK6a3acf9d04d9424ea3f3a6fe3859906dn0Sr2sQfpv_TmjUw9kQwnhDof7d_67g5K0kfeZANs8V9ZJrQYi8fVsGN13aqX4bC' 
+            })
+        ]
+    }).addTo(map);
 
     //Code to load custom GeoJSON file
     var request = new XMLHttpRequest();
