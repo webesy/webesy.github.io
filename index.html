@@ -14,9 +14,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     <!-- leaflet polyline measure css -->
     <link rel="stylesheet" href="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css" />
-    <!-- AJAX css-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.css" />
-
+   
     <!-- leaflet js -->
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
@@ -26,8 +24,6 @@
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
     <!--leaflet polyline measure js-->
     <script src="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
-    <!-- AJAX JS -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.js" integrity="sha512-+WzknvSsSx4xgXjJ40CZ10sRMCE4GgyTT3q1JjKkvo/f8aFbSdcBhjazg6lhZU6fAhBQHjU6JzU6lYlwySYzUw==" crossorigin="anonymous"></script>
     <style>
 
         body {
@@ -107,6 +103,7 @@
         geojsonLayer.addData(data);
        } 
     });
+    
     // Marker and Routing Functionality //
     // Markers
     var mark = L.marker([-37.822, 140.782]).addTo(map)
