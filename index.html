@@ -14,17 +14,11 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     <!-- leaflet polyline measure css -->
     <link rel="stylesheet" href="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css" />
-    <!-- ESRI Leaflet Geocoder CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css"/>
-    
+   
     <!-- leaflet js -->
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
     crossorigin=""></script>
-    <!-- Esri Leaflet from CDN-->
-    <script src="https://unpkg.com/esri-leaflet"></script>
-    <!-- Esri Leaflet Geocoder -->
-    <script src="https://unpkg.com/esri-leaflet-geocoder"></script>
 
     <!--leaflet routing machine js -->
     <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
@@ -69,12 +63,12 @@
     var googleStreets = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
     maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3']
-    });
+});
     //Google Satellite Layer
     var googleSat = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
     maxZoom: 20,
     subdomains:['mt0','mt1','mt2','mt3']
-    });
+});
    
     //Layer Controller
     var baseMaps = {
@@ -87,14 +81,6 @@
 
     googleStreets.addTo(map);
 
-    //ESRI geocoding control
-    var searchControl = L.esri.Geocoding.geosearch({
-        providers: [
-            L.esri.Geocoding.arcgisOnlineProvider({
-                apikey: 'AAPKb17d20fcfa0e4a7ebfef6f5790ca7cdbuU63P12XWb4XKpoGUaBZL-o4HEjHsxEGwuwhGZA_xpE26x8s9EYhMxzf3MjhpUJz' 
-            })
-        ]
-    }).addTo(map);
 
     //Code to load custom GeoJSON file
     var request = new XMLHttpRequest();
@@ -107,6 +93,17 @@
         geojson = JSON.parse(request.responseText);
     }
 
+    // create an empty GeoJSON layer
+    var geojsonLayer = L.geoJSON().addTo(map);
+    // load Haulage Routes GeoJSON data w/ AJAX
+    $.ajax({
+       url: "TotalHaulageRoutes2021.geojson",
+       dataType: "json",
+       success: function(data) {
+        geojsonLayer.addData(data);
+       } 
+    });
+    
     // Marker and Routing Functionality //
     // Markers
     var mark = L.marker([-37.822, 140.782]).addTo(map)
@@ -153,11 +150,11 @@
 
     //Loop to interate through array and add markers to map
     for (var i =0; i < markers.length; i++){
-        var marker = L.marker(markers[i].coords, {icon: markers[i].icon}).addTo(map).bindPopup(markers[i].content);
+        var marker = L.marker(markers[i].coords).addTo(map).bindPopup(markers[i].content);
     }
     // polyline measure functionality
     var measure = L.control.polylineMeasure({
-        position: 'bottomleft',
+        position: 'topleft',
         unit: 'kilometres',
         useSubunits: true,
         clearMeasurementsOnStop: true,
@@ -185,10 +182,20 @@
                 waypoints: [
                     L.latLng(-37.822, 140.782),
                     L.latLng(e.latlng.lat, e.latlng.lng)
-                ]
+                ],
+                router: L.Routing.osrm(),
+                formatter: function(route) {
+                    var summary = '';
+                    for (var i = 0; i < route.instructions.length; i++) {
+                        var distance = route.instructions[i].distance / 1000;
+                        var instruction = route.instructions[i].text;
+                        summary += '<p>Leg ' + (i + 1) + ': ' + distance.toFixed(2) + ' km - ' + instruction + '</p>';
+                    }
+                    return summary;
+                }
             }).addTo(map);
         }
-    });
+});
 
 
 </script>
