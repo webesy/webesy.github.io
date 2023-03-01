@@ -204,7 +204,7 @@
 
     // Update the route when the user finishes dragging the marker
     map.on('dragend', function(e) {
-        if (currentMarker) {
+        if (currentMarker && routingControl) {
             // Update waypoints of routing control object
             routingControl.setWaypoints([
                 L.latLng(-37.822, 140.782),
