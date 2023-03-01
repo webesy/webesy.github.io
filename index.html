@@ -203,7 +203,7 @@
             // Create a new routing control object with the new waypoints
             routingControl = L.Routing.control({
                 waypoints: [
-                    L.latLng(e.latlng.lat, e.latlng.lng),
+                    L.latLng(-37.822, 140.782),
                     L.latLng(e.latlng.lat, e.latlng.lng)
                 ]
             }).addTo(map);
@@ -223,7 +223,7 @@
         if (currentMarker) {
             // Update waypoints of routing control object
             routingControl.setWaypoints([
-                L.latLng(e.latlng.lat, e.latlng.lng),
+                L.latLng(-37.822, 140.782),
                 L.latLng(currentMarker.getLatLng().lat, currentMarker.getLatLng().lng)
             ]);
         }
