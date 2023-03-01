@@ -217,7 +217,7 @@
         }
     });
     // Update the route when the user finishes dragging the marker
-    currentMarker.on('dragstart', function(e) {
+    currentMarker.on('mousedown', function(e) {
         if (currentMarker) {
             map.removeLayer(currentMarker);
         }
