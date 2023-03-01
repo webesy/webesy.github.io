@@ -176,6 +176,15 @@
 
     // map click event
     var currentMarker = null;
+    var routingControl = null;
+
+    // Create the routing control object
+    routingControl = L.Routing.control({
+        waypoints: [
+            L.latLng(-37.822, 140.782),
+            L.latLng(0, 0)
+        ]
+    }).addTo(map);        
 
     map.on('dblclick', function(e){
         console.log(e)
@@ -186,30 +195,24 @@
         //Create a new marker at the clicked location
         currentMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
 
-        //var mark = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
-        
         // check for double click
         if (e.originalEvent.detail == 2) {
-        // function to add routing waypoints to the map
-            L.Routing.control({
-                waypoints: [
+        // Update the waypoints of the routing control object
+            routingControl.setWaypoints([
                     L.latLng(-37.822, 140.782),
-                    L.latLng(e.latlng.lat, e.latlng.lng)
-                ]
-            }).addTo(map);
+                    L.latLng(e.latlng.lat, e.latlng.lng)              
+            ]);
         }
     });
 
     // Update the route when the user finishes dragging the marker
     map.on('dragend', function(e) {
         if (currentMarker) {
-            // Function to update routing waypoints
-            L.Routing.control({
-                waypoints: [
-                    L.LatLng(-37.822, 140.782),
-                    L.latLng(currentMarker.getLatLng().lat, currentMarker.getLatLng().lng)
-                ]
-            }).addTo(map);
+            // Update waypoints of routing control object
+            routingControl.setWaypoints([
+                L.LatLng(-37.822, 140.782),
+                L.latLng(currentMarker.getLatLng().lat, currentMarker.getLatLng().lng)
+            ]);
         }
     });
 
