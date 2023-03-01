@@ -187,6 +187,7 @@
         currentMarker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
 
         //var mark = L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+        
         // check for double click
         if (e.originalEvent.detail == 2) {
         // function to add routing waypoints to the map
@@ -215,7 +216,7 @@
     // Remove the original marker when the user starts dragging
     map.on('dragstart', function(e) {
         if (currentMarker) {
-            marp.removeLayer(currentMarker);
+            map.removeLayer(currentMarker);
         }
     });
 
