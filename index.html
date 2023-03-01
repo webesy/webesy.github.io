@@ -220,7 +220,7 @@
     // Remove the original marker when the user starts dragging
     currentMarker.on('dragstart', function(e) {
         if (currentMarker) {
-            map.removeLayer(currentMarker);
+            currentMarker.remove();
         }
     });
 
