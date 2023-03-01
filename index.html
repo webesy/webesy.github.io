@@ -217,7 +217,7 @@
         }
     });
 
-    // Remove the original marker when the user starts dragging
+    // Delete the marker from memory when the user starts dragging
     currentMarker.on('dragstart', function(e) {
         if (currentMarker) {
             currentMarker.remove();
