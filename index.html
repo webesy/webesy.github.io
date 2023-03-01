@@ -203,7 +203,13 @@
             }).addTo(map);
         }
     });
-
+    
+    // Delete the marker from memory when the user starts dragging
+    currentMarker.on('dragstart', function(e) {
+        if (currentMarker) {
+            map.removeLayer(currentMarker);
+        }
+    });
     // Update the route when the user finishes dragging the marker
     currentMarker.on('dragend', function(e) {
         if (currentMarker && routingControl) {
@@ -219,12 +225,7 @@
         }
     });
 
-    // Delete the marker from memory when the user starts dragging
-    currentMarker.on('dragstart', function(e) {
-        if (currentMarker) {
-            map.removeLayer(currentMarker);
-        }
-    });
+
 
 
 </script>
