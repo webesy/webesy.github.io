@@ -174,17 +174,17 @@
         unitControlUnits: ["kilometres", "landmiles"],
     }).addTo(map);
 
-    // map click event
+    // Routing
     var currentMarker = null;
     var routingControl = null;
 
     // Create the routing control object
-    routingControl = L.Routing.control({
-        waypoints: [
-            L.latLng(-37.822, 140.782),
-            L.latLng(0, 0)
-        ]
-    }).addTo(map);        
+    //routingControl = L.Routing.control({
+        //waypoints: [
+            //L.latLng(-37.822, 140.782),
+            //L.latLng(0, 0)
+        //]
+    //}).addTo(map);        
 
     map.on('dblclick', function(e){
         console.log(e)
@@ -197,20 +197,33 @@
 
         // check for double click
         if (e.originalEvent.detail == 2) {
-        // Update the waypoints of the routing control object
-            routingControl.setWaypoints([
-                    L.latLng(-37.822, 140.782),
-                    L.latLng(e.latlng.lat, e.latlng.lng)              
-            ]);
+            if (routingControl) {
+                routingControl.remove();
+            }
+            // Create a new routing control object with the new waypoints
+            routingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(e.latlng.lat, e.latlng.lng),
+                    L.latLng(e.latlng.lat, e.latlng.lng)
+                ]
+            }).addTo(map);
         }
     });
+
+        // Update the waypoints of the routing control object
+            //routingControl.setWaypoints([
+                    //L.latLng(-37.822, 140.782),
+                    //L.latLng(e.latlng.lat, e.latlng.lng)              
+            //]);
+        //}
+    //});
 
     // Update the route when the user finishes dragging the marker
     map.on('dragend', function(e) {
         if (currentMarker) {
             // Update waypoints of routing control object
             routingControl.setWaypoints([
-                L.LatLng(-37.822, 140.782),
+                L.latLng(e.latlng.lat, e.latlng.lng),
                 L.latLng(currentMarker.getLatLng().lat, currentMarker.getLatLng().lng)
             ]);
         }
