@@ -209,8 +209,6 @@
         if (currentMarker && routingControl) {
             // Remove the original marker when the drag ends
             map.removeLayer(currentMarker);
-            // Add the new marker to the map
-            currentMarker.addTo(map);
             // Update waypoints of routing control object
             routingControl.setWaypoints([
                 L.latLng(-37.822, 140.782),
