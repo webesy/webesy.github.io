@@ -212,5 +212,12 @@
         }
     });
 
+    // Remove the original marker when the user starts dragging
+    map.on('dragstart', function(e) {
+        if (currentMarker) {
+            marp.removeLayer(currentMarker);
+        }
+    });
+
 
 </script>
