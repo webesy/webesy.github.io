@@ -203,11 +203,14 @@
             }).addTo(map);
         }
     });
-    
-    // Delete the marker from memory when the user starts dragging
-    currentMarker.on('dragstart', function(e) {
+
+    // Add dragstart event listener to marker outside of the dblclick event listener
+    map.on('click', function(e) {
         if (currentMarker) {
-            map.removeLayer(currentMarker);
+            currentMarker.on('dragstart', function(e) {
+                map.removeLayer(currentMarker);
+            });
+
         }
     });
     // Update the route when the user finishes dragging the marker
