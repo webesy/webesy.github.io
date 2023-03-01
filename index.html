@@ -204,22 +204,11 @@
         }
     });
 
-    // Add dragstart event listener to marker outside of the dblclick event listener
-    map.on('click', function(e) {
-        if (currentMarker) {
-            currentMarker.on('dragstart', function(e) {
-                map.removeLayer(currentMarker);
-            });
-
-        }
-    });
-    // Update the route when the user finishes dragging the marker
+    // Update the route when the user finishes dragging the marker 
     currentMarker.on('dragend', function(e) {
         if (currentMarker && routingControl) {
-            // Remove the original marker when the drag ends
-            map.removeLayer(currentMarker);
-            // Add the new marker to the map
-            currentMarker.addTo(map);
+            // Update the position of the original marker
+            currentMarker.setLatLng(e.target.getLatLng());
             // Update waypoints of routing control object
             routingControl.setWaypoints([
                 L.latLng(-37.822, 140.782),
@@ -227,8 +216,12 @@
             ]);
         }
     });
-
-
+    // Update the route when the user finishes dragging the marker
+    currentMarker.on('dragstart', function(e) {
+        if (currentMarker) {
+            map.removeLayer(currentMarker);
+        }
+    });
 
 
 </script>
